@@ -1,0 +1,39 @@
+<div class="p-6 m-6">
+  <div class="card m-12">
+    <div class="card-header">
+      <span>Boggle Board <span [hidden]="!isLoading">Solving <i class="fa fa-spinner"></i></span></span>
+    </div>
+    <div class="card-body boggle-board text-center">
+      <div>
+        <div class="list-inline">
+          <div *ngFor="let row of rows">
+            <li *ngFor="let letter of this.boardForm.controls.slice(row, row + boardSize); index as i" class="list-inline-item">
+              <div class="card letter-box">
+                <div class="card-body">
+                  <input
+                    type="text"
+                    class="form-control border-0 shadow-none"
+                    maxlength="1"
+                    [formControl]="letter"
+                  >
+                </div>
+              </div>
+            </li>
+          </div>
+        </div>
+      </div>
+      <div class="text-danger float-left" [hidden]="isValid">
+        <small>{{validationMessages.REQUIRED_FIELDS}}</small>
+      </div>
+    </div>
+    <div class="card-footer">
+
+      <div class="btn-group float-right">
+        <button class="btn btn-sm btn-outline-primary mr-2" [disabled]="isLoading || !isValid"  (click)="findWords()">Find Words <i class="fa fa-pencil"></i></button>
+        <button class="btn btn-sm btn-outline-danger" [disabled]="isLoading" (click)="resetBoard()">Reset <i class="fa fa-spinner"></i></button>
+        <button class="btn btn-sm btn-outline-secondary" (click)="setLoading()">Reset <i class="fa fa-spinner"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
