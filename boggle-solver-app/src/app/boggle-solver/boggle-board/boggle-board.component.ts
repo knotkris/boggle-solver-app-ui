@@ -52,8 +52,4 @@ export class BoggleBoardComponent implements OnInit {
   findWords(): void {
     this.boggleSolverService.fetchWordList();
   }
-
-  setLoading(): void {
-    this.boggleSolverService.isLoading = false;
-  }
 }
