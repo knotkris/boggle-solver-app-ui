@@ -7,7 +7,7 @@
       <div>
         <div class="list-inline">
           <div *ngFor="let row of rows">
-            <li *ngFor="let letter of this.boardForm.controls.slice(row, row + boardSize); index as i" class="list-inline-item">
+            <li *ngFor="let letter of this.board.controls.slice(row, row + boardSize); index as i" class="list-inline-item">
               <div class="card letter-box">
                 <div class="card-body">
                   <input

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {BoggleSolverService} from "../services/boggle-solver.service";
-import {FormArray, FormControl, Validators} from "@angular/forms";
-import {Constants} from "../../constants";
+import {BoggleSolverService} from '../services/boggle-solver.service';
+import {FormArray, FormControl, Validators} from '@angular/forms';
+import {Constants} from '../../constants';
 
 @Component({
   selector: 'app-boggle-board',
@@ -10,15 +10,13 @@ import {Constants} from "../../constants";
 })
 export class BoggleBoardComponent implements OnInit {
 
-  boardForm: FormArray;
-
   constructor(private boggleSolverService: BoggleSolverService) { }
 
   ngOnInit(): void {
     this.initFormArray();
   }
 
-  get board(): string[] {
+  get board(): FormArray {
     return this.boggleSolverService.boggleBoard;
   }
 
@@ -27,7 +25,7 @@ export class BoggleBoardComponent implements OnInit {
   }
 
   get isValid(): boolean {
-    return this.boardForm.valid;
+    return this.board.valid;
   }
 
   get rows(): Array<number> { // returns an array of the row start of the array given the boggle board size
@@ -43,15 +41,12 @@ export class BoggleBoardComponent implements OnInit {
   }
 
   initFormArray(): void {
-    this.boardForm = new FormArray([]);
-    for (let i = 0; i < this.boggleSolverService.boardSize * this.boggleSolverService.boardSize; i++) {
-      this.boardForm.insert(i, new FormControl('', [Validators.required, Validators.pattern('[A-Za-z]')]));
-    }
+    this.boggleSolverService.initFormArray();
   }
 
   resetBoard(): void {
-    this.initFormArray();
-    this.boggleSolverService.wordList = [];
+    this.boggleSolverService.resetBoard();
+    this.boggleSolverService.resetWordList();
   }
 
   findWords(): void {
