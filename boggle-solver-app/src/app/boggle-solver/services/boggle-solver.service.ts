@@ -12,7 +12,7 @@ export class BoggleSolverService {
 
   wordList: string[] = [];
   boggleBoard: FormArray;
-  boardSize = 4; // w x h dimensions for boggle board
+  boardSize = Constants.DEFAULT_BOARD_SIZE; // w x h dimensions for boggle board
 
   isLoading = false;
 
@@ -21,23 +21,29 @@ export class BoggleSolverService {
   fetchWordList(): void {
     this.isLoading = true;
     const board: string[] = this.boggleBoard.controls.map(form => form.value as string);
-    this.wordList = ['cats', 'ats', 'ats', 'ats', 'ats', 'ats', 'ats', 'ats', 'ats', 'ats', 'ats', 'ats', 'ats', 'ats'];
-    const httpParams = new HttpParams().set('boggle-board', board.toString());
-    // todo add timeouts and map data for errors
-    /*this.boggleSolverRestService.fetchWordList(httpParams).pipe(timeout(1000)).subscribe(
-      data => {
-        console.log(data);
+
+    const httpParams = new HttpParams()
+      .set('board', board.toString())
+      .set('size', this.boardSize.toString());
+
+    this.boggleSolverRestService.fetchWordList(httpParams).pipe(timeout(Constants.DEFAULT_TIMEOUT)).subscribe(
+      resp => {
+        this.isLoading = false;
+        if (resp.data) {
+          this.wordList = resp.data;
+        }
       },
       error => {
+        this.isLoading = false;
         console.log(error);
       }
-    );*/
+    );
   }
 
   initFormArray(): void {
     this.boggleBoard = new FormArray([]);
     for (let i = 0; i < this.boardSize * this.boardSize; i++) {
-      this.boggleBoard.insert(i, new FormControl(Constants.DEFAULT_BOGGLE_PIECE, [Validators.required, Validators.pattern('[A-Za-z]')]));
+      this.boggleBoard.insert(i, new FormControl(Constants.DEFAULT_BOGGLE_PIECE, [Validators.required, Validators.pattern(Constants.ALPHA_REG_EX)]));
     }
   }
 
