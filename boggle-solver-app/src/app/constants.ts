@@ -6,6 +6,6 @@ export class Constants {
 
   public static DEFAULT_BOGGLE_PIECE = 'A';
   public static DEFAULT_Q_VALUE = 'QU';
-  public static DEFAULT_TIMEOUT = 10000;
+  public static DEFAULT_TIMEOUT = 1200000;
   public static DEFAULT_BOARD_SIZE = 4;
 }
