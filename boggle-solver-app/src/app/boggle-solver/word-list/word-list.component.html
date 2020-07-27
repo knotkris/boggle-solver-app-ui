@@ -8,7 +8,7 @@
         <span>No words found</span>
       </div>
       <div [hidden]="!isLoading">
-        <i class="fa fa-spinner"></i>
+        <i class="fa fa-spinner fa-spin"></i>
       </div>
       <ul class="list-group" [hidden]="isLoading">
         <li *ngFor="let word of wordList; index as i" class="list-group-item">
