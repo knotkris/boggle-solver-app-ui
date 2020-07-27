@@ -1,0 +1,23 @@
+<div>
+  <div class="card">
+    <div class="card-header">
+      <span>Boggle Words</span>
+    </div>
+    <div class="card-body text-center">
+      <div [hidden]="wordList.length !== 0 || isLoading">
+        <span>No words found</span>
+      </div>
+      <div [hidden]="!isLoading">
+        <i class="fa fa-spinner fa-spin"></i>
+      </div>
+      <ul class="list-group" [hidden]="isLoading">
+        <li *ngFor="let word of wordList; index as i" class="list-group-item">
+          {{word}}
+        </li>
+      </ul>
+    </div>
+    <div class="card-footer">
+      <button class="btn btn-sm btn-outline-danger float-right" (click)="resetWordList()">Reset</button>
+    </div>
+  </div>
+</div>

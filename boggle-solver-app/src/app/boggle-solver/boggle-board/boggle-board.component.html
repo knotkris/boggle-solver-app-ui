@@ -1,0 +1,38 @@
+<div class="p-6 m-6">
+  <div class="card m-12">
+    <div class="card-header">
+      <span>Boggle Board <i [hidden]="!isLoading" class="fa fa-spinner fa-spin"></i></span>
+    </div>
+    <div class="card-body boggle-board text-center">
+      <div>
+        <div class="list-inline">
+          <div *ngFor="let row of rows">
+            <li *ngFor="let letter of this.board.controls.slice(row, row + boardSize); index as i" class="list-inline-item">
+              <div class="card letter-box">
+                <div class="card-body">
+                  <input
+                    type="text"
+                    class="form-control border-0 shadow-none"
+                    maxlength="1"
+                    [formControl]="letter"
+                  >
+                </div>
+              </div>
+            </li>
+          </div>
+        </div>
+      </div>
+      <div class="text-danger float-left" [hidden]="isValid">
+        <small>{{validationMessages.REQUIRED_FIELDS}}</small>
+      </div>
+    </div>
+    <div class="card-footer">
+
+      <div class="btn-group float-right">
+        <button class="btn btn-sm btn-outline-primary mr-2" [disabled]="isLoading || !isValid"  (click)="findWords()">Find Words <i [hidden]="!isLoading" class="fa fa-spinner fa-spin"></i></button>
+        <button class="btn btn-sm btn-outline-danger" [disabled]="isLoading" (click)="resetBoard()">Reset <i [hidden]="!isLoading" class="fa fa-spinner fa-spin"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
